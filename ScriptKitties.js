@@ -1046,7 +1046,7 @@ function autoCraft() {
 		var resourcePerTick = gamePage.getResourcePerTick(resources[i][0], true);
 		var resourcePerCraft = (resourcePerTick * dispatchFunctions.autoCraft.triggerInterval);
 		if (curRes.value > ((capBufferRatio / 100) * curRes.maxValue - resourcePerCraft) && gamePage.workshop.getCraft(resources[i][1]).unlocked) {
-			gamePage.craft(resources[i][1], (resourcePerCraft / resources[i][2]));
+			gamePage.craft(resources[i][1], ((capBufferRatio/100)*curRes.maxValue - curRes.value) / resources[i][2]));
 		}
 	}
 
