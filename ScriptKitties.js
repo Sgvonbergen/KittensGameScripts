@@ -1292,7 +1292,7 @@ var dispatchFunctions = {
 	},
 	autoTrade: {
 		functionRef: autoTrade,
-		triggerInterval: 10,
+		triggerInterval: 1,
 		triggerImmediate: true,
 		triggerTick: Infinity,
 		autoButton: autoButtons.autoTrade
