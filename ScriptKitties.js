@@ -70,10 +70,12 @@ var proVar = gamePage.resPool.energyProd;
 var conVar = gamePage.resPool.energyCons;
 var tickDownCounter = 1;
 var deadScript = "Script is dead";
-var furDerVal = 3;
+var furDerVal = 1;
 var autoChoice = "farmer";
 var resList = [];
 var secResRatio = 0;
+var capBufferRatio = 90;
+var goldBufferRatio = 90;
 var steamOn = 0;
 var programBuild = false;
 
@@ -235,8 +237,13 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<label id="secResLabel"> Secondary Craft % </label>' +
 '<span id="secResSpan" title="Between 0 and 100"><input id="secResText" type="text" style="width:25px" onchange="secResRatio = this.value" value="30"></span><br /><br />' +
 
+'<label id="secResLabel"> Cap Buffer Ratio Craft % </label>' +
+'<span id="secResSpan" title="Between 0 and 100"><input id="capBufferRatioText" type="text" style="width:25px" onchange="capBufferRatio = this.value" value="90"></span><br /><br />' +
+
 '<button id="autoHunt" style="color:red" onclick="autoSwitch(autoButtons.autoHunt)"> Auto Hunt </button><br />' +
 '<button id="autoTrade" style="color:red" onclick="autoSwitch(autoButtons.autoTrade)"> Auto Trade </button><br />' +
+'<label id="secResLabel"> Gold Buffer Ratio Trade % </label>' +
+'<span id="secResSpan" title="Between 0 and 100"><input id="golBufferRatioText" type="text" style="width:25px" onchange="goldBufferRatio = this.value" value="90"></span><br /><br />' +
 '<input id= "tradeMaxUranium" type="checkbox" onclick="tradeMax.uranium = this.checked" /><label for="tradeMaxUranium">Maximize uranium trades</label><br />' +
 '<input id= "tradeMaxCoal" type="checkbox" onclick="tradeMax.coal = this.checked" /><label for="tradeMaxCoal">Maximize coal trades</label><br />' +
 '<input id= "tradeMaxIron" type="checkbox" onclick="tradeMax.iron = this.checked" /><label for="tradeMaxIron">Maximize iron trades</label><br />' +
@@ -565,7 +572,7 @@ function autoTrade() {
 
 
 	// Non-Leviathan trades are only performed if we are about to hit our gold cap; if we have room for enough gold to last until the next run of this function, abort
-	if ((goldResource.value + (gamePage.getResourcePerTick('gold', true) * dispatchFunctions.autoTrade.triggerInterval)) < goldResource.maxValue) {
+	if ((goldResource.value + (gamePage.getResourcePerTick('gold', true) * dispatchFunctions.autoTrade.triggerInterval)) < (goldBufferRatio / 100) * goldResource.maxValue) {
 		return;
 	}
 
@@ -1038,7 +1045,7 @@ function autoCraft() {
 		var curRes = gamePage.resPool.get(resources[i][0]);
 		var resourcePerTick = gamePage.getResourcePerTick(resources[i][0], true);
 		var resourcePerCraft = (resourcePerTick * dispatchFunctions.autoCraft.triggerInterval);
-		if (curRes.value > (curRes.maxValue - resourcePerCraft) && gamePage.workshop.getCraft(resources[i][1]).unlocked) {
+		if (curRes.value > ((capBufferRatio / 100) * curRes.maxValue - resourcePerCraft) && gamePage.workshop.getCraft(resources[i][1]).unlocked) {
 			gamePage.craft(resources[i][1], (resourcePerCraft / resources[i][2]));
 		}
 	}
