@@ -56,7 +56,7 @@ var autoButtons = {
 }
 
 var tradeMax = {uranium: false, coal: false, iron: false};
-
+var tradeUnobtainium = false;
 // These will allow quick selection of the buildings which consume energy
 var bldSmelter = gamePage.bld.buildingsData[15];
 var bldBioLab = gamePage.bld.buildingsData[9];
@@ -247,6 +247,7 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<input id= "tradeMaxUranium" type="checkbox" onclick="tradeMax.uranium = this.checked" /><label for="tradeMaxUranium">Maximize uranium trades</label><br />' +
 '<input id= "tradeMaxCoal" type="checkbox" onclick="tradeMax.coal = this.checked" /><label for="tradeMaxCoal">Maximize coal trades</label><br />' +
 '<input id= "tradeMaxIron" type="checkbox" onclick="tradeMax.iron = this.checked" /><label for="tradeMaxIron">Maximize iron trades</label><br />' +
+'<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow Trading Unobtainium</label><br />' +
 '<button id="autoPraise" style="color:red" onclick="autoSwitch(autoButtons.autoPraise)"> Auto Praise </button><br /><br />' +
 '<button id="autoScience" style="color:red" onclick="autoSwitch(autoButtons.autoScience)"> Auto Science </button><br />' +
 '<button id="autoUpgrade" style="color:red" onclick="autoSwitch(autoButtons.autoUpgrade)"> Auto Upgrade </button><br />' +
@@ -564,7 +565,7 @@ function autoTrade() {
 			&& (
 				(leviathansRace.duration <= 400 + (100 * leviathansRace.energy))
 				|| (unobtainiumResource.value + (gamePage.getResourcePerTick('unobtainium', true) * dispatchFunctions.autoTrade.triggerInterval) > unobtainiumResource.maxValue)
-			)
+			) && tradeUnobtainium
 	) {
 		// When we do trade with the Leviathans, we always trade the maximum amount possible
 		gamePage.diplomacy.tradeAll(leviathansRace);
