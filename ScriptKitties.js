@@ -812,7 +812,7 @@ function tradeSpiders() {
 
 	// First, calculate the amount of the desired resource returned by each trade if it manages to return any
 	// For coal, this is 350 units per trade boosted by your trade ratio, modified by a seasonal modifier; there's a random variation, but it's irrelevant since it cancels itself out
-	var expectedCoalPerTrade = 350 * (1 + gamePage.diplomacy.getTradeRatio()) * spidersRace.sells[0].seasons[gamePage.calendar.getCurSeason().name];
+	var expectedCoalPerTrade = 350 * (1 + gamePage.diplomacy.getTradeRatio()) * (1 + spidersRace.sells[0].seasons[gamePage.calendar.getCurSeason().name]);
 
 	// Then modify that by the effects of race relations
 	// For the Spiders, this is the chance any given trade will return 25% extra because they are friendly
@@ -900,7 +900,7 @@ function tradeGriffins() {
 
 	// First, calculate the amount of the desired resource returned by each trade if it manages to return any
 	// For iron, this is 250 units per trade boosted by your trade ratio, modified by a seasonal modifier; there's a random variation, but it's irrelevant since it cancels itself out
-	var expectedIronPerTrade = 250 * (1 + gamePage.diplomacy.getTradeRatio()) * griffinsRace.sells[0].seasons[gamePage.calendar.getCurSeason().name];
+	var expectedIronPerTrade = 250 * (1 + gamePage.diplomacy.getTradeRatio()) * (1 + griffinsRace.sells[0].seasons[gamePage.calendar.getCurSeason().name]);
 
 	// Then modify that by the effects of race relations
 	// For the Griffins, this is the chance any given trade will fail because they are hostile
