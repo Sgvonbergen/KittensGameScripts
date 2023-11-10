@@ -630,7 +630,7 @@ function tradeZebras() {
 
 	// Then modify that by the effects of race relations
 	// For the Zebras, this is the chance any given trade will fail because they are hostile
-	var tradeChance = 70 + gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0);
+	var tradeChance = 70 + 100*gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0);
 	if (tradeChance < 100) {
 		expectedTitaniumPerTrade *= tradeChance / 100;
 	}
@@ -822,7 +822,7 @@ function tradeSpiders() {
 
 	// Then modify that by the effects of race relations
 	// For the Spiders, this is the chance any given trade will return 25% extra because they are friendly
-	var bonusChance = 15 + ((gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0)) / 2);
+	var bonusChance = 15 + (100*(gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0)) / 2);
 	expectedCoalPerTrade *= 1 + (0.25 * (bonusChance <= 100 ? bonusChance : 100) / 100);
 
 	// Then modify that by the chance that a successful trade will not include the desired resource in its results
@@ -910,7 +910,7 @@ function tradeGriffins() {
 
 	// Then modify that by the effects of race relations
 	// For the Griffins, this is the chance any given trade will fail because they are hostile
-	var tradeChance = 85 + gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0);
+	var tradeChance = 85 + 100*gamePage.getEffect("standingRatio") + (diplomacyPerk.researched ? 10 : 0);
 	if (tradeChance < 100) {
 		expectedIronPerTrade *= tradeChance / 100;
 	}
