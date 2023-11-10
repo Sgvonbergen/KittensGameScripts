@@ -749,6 +749,7 @@ function tradeDragons() {
 
 
 	// Determine how many trades to perform depending on the current trade mode
+	/*
 	if (tradeMax.uranium && gamePage.workshop.getCraft('thorium').unlocked) {
 		// We are in maximize mode, which means we want to trade for as much uranium as possible, converting any excess into thorium
 
@@ -769,6 +770,7 @@ function tradeDragons() {
 		// Craft the necessary quantity of thorium, with each crafting consuming 250 units of uranium
 		gamePage.craft("thorium", uraniumOverflow / 250);
 	} else {
+ 	*/
 		// We are in normal mode, which means we want to trade for just enough uranium to fill our stockpile
 
 		// Determine the amount of uranium needed to reach our target
@@ -784,7 +786,7 @@ function tradeDragons() {
 
 		// If possible, we want to perform as many trades as necessary to fill the stockpile; if we don't have enough resources to do that, we just do as many as we can
 		var tradesToPerform = Math.min(tradesRequired, maxTradesPossible);
-	}
+	//}
 
 
 	// Perform the trades
@@ -830,7 +832,7 @@ function tradeSpiders() {
 	// Our target final coal level is the maximum capacity of our stockpile, minus a buffer large enough to ensure it doesn't overflow before the next autoCraft() (assuming our coal income is positive)
 	var targetCoal = coalResource.maxValue - Math.max(gamePage.getResourcePerTick('coal', true) * dispatchFunctions.autoCraft.triggerInterval, 0);
 
-
+	/*
 	// Determine how many trades to perform depending on the current trade mode
 	if (tradeMax.coal && gamePage.workshop.getCraft('steel').unlocked) {
 		// We are in maximize mode, which means we want to trade for as much coal as possible, converting any excess into steel
@@ -858,6 +860,7 @@ function tradeSpiders() {
 		// Craft the necessary quantity of steel, with each crafting consuming 100 units of coal
 		gamePage.craft("steel", coalOverflow / 100);
 	} else {
+ 		*/
 		// We are in normal mode, which means we want to trade for just enough coal to fill our stockpile
 
 		// Determine the amount of coal needed to reach our target
@@ -873,7 +876,7 @@ function tradeSpiders() {
 
 		// If possible, we want to perform as many trades as necessary to fill the stockpile; if we don't have enough resources to do that, we just do as many as we can
 		var tradesToPerform = Math.min(tradesRequired, maxTradesPossible);
-	}
+	//}
 
 	// Perform the trades
 	gamePage.diplomacy.tradeMultiple(spidersRace, tradesToPerform);
@@ -919,7 +922,7 @@ function tradeGriffins() {
 	// Our target final iron level is the maximum capacity of our stockpile, minus a buffer large enough to ensure it doesn't overflow before the next autoCraft() (assuming our iron income is positive)
 	var targetIron = ironResource.maxValue - Math.max(gamePage.getResourcePerTick('iron', true) * dispatchFunctions.autoCraft.triggerInterval, 0);
 
-
+	/*
 	// Determine how many trades to perform depending on the current trade mode
 	if (tradeMax.iron && gamePage.workshop.getCraft('steel').unlocked) {
 		// We are in maximize mode, which means we want to trade for as much iron as possible, converting any excess into steel
@@ -947,6 +950,7 @@ function tradeGriffins() {
 		// Craft the necessary quantity of steel, with each crafting consuming 100 units of iron
 		gamePage.craft("steel", ironOverflow / 100);
 	} else {
+ 	*/
 		// We are in normal mode, which means we want to trade for just enough iron to fill our stockpile
 
 		// Determine the amount of iron needed to reach our target
@@ -962,7 +966,7 @@ function tradeGriffins() {
 
 		// If possible, we want to perform as many trades as necessary to fill the stockpile; if we don't have enough resources to do that, we just do as many as we can
 		var tradesToPerform = Math.min(tradesRequired, maxTradesPossible);
-	}
+	//}
 
 	// Perform the trades
 	gamePage.diplomacy.tradeMultiple(griffinsRace, tradesToPerform);
