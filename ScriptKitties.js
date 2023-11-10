@@ -581,16 +581,10 @@ function autoTrade() {
 	tradeZebras();
 	if (tradeMax.uranium) {
 		tradeDragons();
-		tradeSpiders();
-		tradeGriffins();
 	} else if (tradeMax.iron) {
 		tradeGriffins();
-		tradeDragons();
-		tradeSpiders();
 	} else if (tradeMax.coal) {
 		tradeSpiders();
-		tradeDragons();
-		tradeGriffins();
 	} else {
 		tradeDragons();
 		tradeSpiders();
