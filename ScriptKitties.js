@@ -577,12 +577,25 @@ function autoTrade() {
 		return;
 	}
 
-
 	// Perform the non-Leviathan trades
 	tradeZebras();
-	tradeDragons();
-	tradeSpiders();
-	tradeGriffins();
+	if (tradeMax.uranium) {
+		tradeDragons();
+		tradeSpiders();
+		tradeGriffins();
+	} else if (tradeMax.iron) {
+		tradeGriffins();
+		tradeDragons();
+		tradeSpiders();
+	} else if (tradeMax.coal) {
+		tradeSpiders();
+		tradeDragons();
+		tradeGriffins();
+	} else {
+		tradeDragons();
+		tradeSpiders();
+		tradeGriffins();
+	}
 }
 
 
