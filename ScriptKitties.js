@@ -1076,11 +1076,24 @@ function autoCraft() {
 
 	//Craft the fur derivatives
 	var furDerivatives = ['parchment', 'manuscript', 'compedium', 'blueprint'];
-	for (var i = 0; i < furDerVal; i++) {
-		if (gamePage.workshop.getCraft(furDerivatives[i]).unlocked) {
-			gamePage.craftAll(furDerivatives[i]);
+	if (furDerVal == 4) {
+		if (gamePage.workshop.getCraft(furDerivatives[3]).unlocked) {
+			gamePage.craftAll(furDerivatives[3]);
+		}
+		for (var i = 0; i < 3; i++) {
+			if (gamePage.workshop.getCraft(furDerivatives[i]).unlocked) {
+				gamePage.craftAll(furDerivatives[i]);
+			}
+		}
+	} else {
+		for (var i = 0; i < furDerVal; i++) {
+			if (gamePage.workshop.getCraft(furDerivatives[i]).unlocked) {
+				gamePage.craftAll(furDerivatives[i]);
+			}
 		}
 	}
+	
+	
 }
 
 // Auto Research
