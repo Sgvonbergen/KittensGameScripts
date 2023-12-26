@@ -50,6 +50,11 @@ var autoButtons = {
 		swapName: 'energy',
 		buttonId: 'autoEnergy'
 	},
+	autoFeed: {
+		active: false,
+		swapName: 'feed',
+		buttonId: 'autoFeed'
+	},
 	alwaysOn: {
 		active: true
 	},
@@ -247,8 +252,9 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<input id= "tradeMaxUranium" type="checkbox" onclick="tradeMax.uranium = this.checked" /><label for="tradeMaxUranium">Maximize uranium trades</label><br />' +
 '<input id= "tradeMaxCoal" type="checkbox" onclick="tradeMax.coal = this.checked" /><label for="tradeMaxCoal">Maximize coal trades</label><br />' +
 '<input id= "tradeMaxIron" type="checkbox" onclick="tradeMax.iron = this.checked" /><label for="tradeMaxIron">Maximize iron trades</label><br />' +
-'<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow Trading Unobtainium</label><br />' +
-'<button id="autoPraise" style="color:red" onclick="autoSwitch(autoButtons.autoPraise)"> Auto Praise </button><br /><br />' +
+'<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow Trading Unobtainium</label><br /><br />' +
+'<button id="autoFeed" style="color:red" onclick="autoSwitch(autoButtons.autoFeed)"> Auto Feed </button><br />' +
+'<button id="autoPraise" style="color:red" onclick="autoSwitch(autoButtons.autoPraise)"> Auto Praise </button><br />' +
 '<button id="autoScience" style="color:red" onclick="autoSwitch(autoButtons.autoScience)"> Auto Science </button><br />' +
 '<button id="autoUpgrade" style="color:red" onclick="autoSwitch(autoButtons.autoUpgrade)"> Auto Upgrade </button><br />' +
 '<button id="autoEnergy" style="color:red" onclick="autoSwitch(autoButtons.autoEnergy)"> Energy Control </button><br />' +
@@ -1183,7 +1189,8 @@ function autoParty() {
 // Auto assign new kittens to selected job
 function autoAssign() {
 	if (gamePage.village.getJob(autoChoice).unlocked && (gamePage.village.getFreeKittens() > 0)) {
-		gamePage.village.assignJob(gamePage.village.getJob(autoChoice));
+		// Assigns 1 kitten at a time
+		gamePage.village.assignJob(gamePage.village.getJob(autoChoice), 1);
 
 		// Set the triggerImmediate flag for this function, indicating it should be called again next tick
 		dispatchFunctions.autoAssign.triggerImmediate = true;
@@ -1234,12 +1241,29 @@ function energyControl() {
 	}
 }
 
+
 function autoNip() {
 	if (gamePage.bld.buildingsData[0].val < 30) {
 		$(".btnContent:contains('Gather')").trigger("click");
 
 		// Set the triggerImmediate flag for this function, so that it is called again next tick
 		dispatchFunctions.autoNip.triggerImmediate = true;
+	}
+}
+
+var leviathansRace = gamePage.diplomacy.get("leviathans");
+var necrocornResource = gamePage.resPool.get("necrocorn");
+function autoFeed() {
+	if (!leviathansRace.unlocked) {
+		return;
+	}
+	if (necrocornResource.value < 1) {
+		return;
+	}
+	// Feed 1 necrocorn at a time
+	var energyCap = gamePage.diplomacy.getMarkerCap();
+	if (leviathansRace.energy < energyCap) {
+		gamePage.diplomacy.feedElders(1);
 	}
 }
 
@@ -1324,17 +1348,24 @@ var dispatchFunctions = {
 	},
 	autoPraise: {
 		functionRef: autoPraise,
-		triggerInterval: 20,
+		triggerInterval: 1,
 		triggerImmediate: true,
 		triggerTick: Infinity,
 		autoButton: autoButtons.autoPraise
 	},
 	autoHunt: {
 		functionRef: autoHunt,
-		triggerInterval: 20,
+		triggerInterval: 1,
 		triggerImmediate: true,
 		triggerTick: Infinity,
 		autoButton: autoButtons.autoHunt
+	},
+	autoFeed: {
+		functionRef: autoFeed,
+		triggerInterval: 20,
+		triggerImmediate: true,
+		triggerTick: Infinity,
+		autoButton: autoButtons.autoFeed
 	},
 	emergencyTradeFood: {
 		functionRef: emergencyTradeFood,
@@ -1348,6 +1379,7 @@ var dispatchFunctions = {
 var dispatchOrder = [
 	'autoAssign',
 	'emergencyTradeFood',
+	'autoParty',
 	'autoTrade',
 	'autoHunt',
 	'autoObserve',
@@ -1358,8 +1390,8 @@ var dispatchOrder = [
 	'autoCraft',
 	'energyControl',
 	'autoNip',
-	'autoParty',
-	'autoPraise'
+	'autoPraise',
+	'autoFeed'
 ];
 
 // This function keeps track of the game's ticks and uses math to execute these functions at set times relative to the game.
