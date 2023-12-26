@@ -211,14 +211,14 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 
 '<a id="scriptOptions" onclick="selectOptions()"> | ScriptKitties </a>' +
 
-'<div id="optionSelect" style="display:none; margin-top:-600px; margin-left:-100px; width:200px" class="dialog help">' +
+'<div id="optionSelect" style="display:none; margin-top:-570px; margin-left:-110px; width:200px" class="dialog help">' +
 '<a href="#" onclick="clearOptionHelpDiv();" style="position: absolute; top: 10px; right: 15px;">close</a>' +
 
 '<button id="killSwitch" onclick="clearInterval(clearScript()); gamePage.msg(deadScript);">Kill Switch</button> <br />' +
 '<button id="efficiencyButton" onclick="kittenEfficiency()">Check Efficiency</button><br /><br />' +
 
-'<button id="autoBuild" style="color:red" onclick="autoSwitch(autoButtons.autoBuild);"> Auto Build </button><br />' +
-'<button id="bldSelect" onclick="selectBuildings()">Select Building</button><br />' +
+'<button id="autoBuild" style="color:red" onclick="autoSwitch(autoButtons.autoBuild);"> Auto Build </button>' +
+'<button id="bldSelect" style="margin-left:15px" onclick="selectBuildings()">Select Building</button><br />' +
 
 '<button id="autoAssign" style="color:red" onclick="autoSwitch(autoButtons.autoAssign)"> Auto Assign </button>' +
 '<select id="autoAssignChoice" size="1" onclick="setAutoAssignValue()">' +
@@ -229,7 +229,7 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<option value="miner">Miner</option>' +
 '<option value="hunter">Hunter</option>' +
 '<option value="engineer">Engineer</option>' +
-'</select><br />' +
+'</select><br /><br />' +
 
 '<button id="autoCraft" style="color:red" onclick="autoSwitch(autoButtons.autoCraft)"> Auto Craft </button>' +
 '<select id="craftFur" size="1" onclick="setFurValue()">' +
@@ -237,22 +237,23 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<option value="2">Manuscript</option>' +
 '<option value="3">Compendium</option>' +
 '<option value="4">Blueprint</option>' +
-'</select><br /><br />' +
+'</select><br />' +
 
-'<label id="secResLabel"> Secondary Craft % </label>' +
-'<span id="secResSpan" title="Between 0 and 100"><input id="secResText" type="text" style="width:25px" onchange="secResRatio = this.value" value="30"></span><br /><br />' +
+'<label id="secResLabel" title="Between 0 and 100"> Secondary Craft % </label>' +
+'<span id="secResSpan" title="Between 0 and 100"><input id="secResText" type="text" style="width:25px" onchange="secResRatio = this.value" value="30"></span><br />' +
 
-'<label id="secResLabel"> Cap Buffer Ratio Craft % </label>' +
+'<label id="secResLabel" title="Between 0 and 100"> Cap Buffer Ratio % </label>' +
 '<span id="secResSpan" title="Between 0 and 100"><input id="capBufferRatioText" type="text" style="width:25px" onchange="capBufferRatio = this.value" value="90"></span><br /><br />' +
 
-'<button id="autoHunt" style="color:red" onclick="autoSwitch(autoButtons.autoHunt)"> Auto Hunt </button><br />' +
+
 '<button id="autoTrade" style="color:red" onclick="autoSwitch(autoButtons.autoTrade)"> Auto Trade </button><br />' +
-'<label id="secResLabel"> Gold Buffer Ratio Trade % </label>' +
-'<span id="secResSpan" title="Between 0 and 100"><input id="golBufferRatioText" type="text" style="width:25px" onchange="goldBufferRatio = this.value" value="90"></span><br /><br />' +
+'<label id="secResLabel" title="Between 0 and 100"> Gold Buffer Ratio % </label>' +
+'<span id="secResSpan" title="Between 0 and 100"><input id="golBufferRatioText" type="text" style="width:25px" onchange="goldBufferRatio = this.value" value="90"></span><br />' +
 '<input id= "tradeMaxUranium" type="checkbox" onclick="tradeMax.uranium = this.checked" /><label for="tradeMaxUranium">Maximize uranium trades</label><br />' +
 '<input id= "tradeMaxCoal" type="checkbox" onclick="tradeMax.coal = this.checked" /><label for="tradeMaxCoal">Maximize coal trades</label><br />' +
 '<input id= "tradeMaxIron" type="checkbox" onclick="tradeMax.iron = this.checked" /><label for="tradeMaxIron">Maximize iron trades</label><br />' +
-'<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow Trading Unobtainium</label><br /><br />' +
+'<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow leviathan trades</label><br /><br />' +
+'<button id="autoHunt" style="color:red" onclick="autoSwitch(autoButtons.autoHunt)"> Auto Hunt </button><br />' +
 '<button id="autoFeed" style="color:red" onclick="autoSwitch(autoButtons.autoFeed)"> Auto Feed </button><br />' +
 '<button id="autoPraise" style="color:red" onclick="autoSwitch(autoButtons.autoPraise)"> Auto Praise </button><br />' +
 '<button id="autoScience" style="color:red" onclick="autoSwitch(autoButtons.autoScience)"> Auto Science </button><br />' +
