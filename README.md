@@ -1,5 +1,5 @@
 # ScriptKitties
-A script to automate playing the addicting <a href="http://bloodrizer.ru/games/kittens/#">Kittens Game</a>
+A script to automate playing the addicting <a href="http://bloodrizer.ru/games/kittens/#">Kittens Game</a>. This is a fork of MaPaul1977 proyect [link](https://github.com/MaPaul1977/KittensGame)
 
 ## How do I use the script?
 
@@ -23,6 +23,7 @@ Currently this script will automatically do the following:
 7) Upgrade Workshop
 8) Festival
 9) Energy Control
+10) Feed Leaviathans
 
 
 ## What are some interesting details?
@@ -45,13 +46,17 @@ Currently this script will automatically do the following:
 
 <b>ENERGY:</b> Don't worry about having negative energy or wasted potential! Turn on Energy Control, and you will stay between 0 and 3 Watts of surplus power!
 
+<b>FEED:</b> Want to get the most out of your necrocorn production? Tur on Auto Feed and every new necrocorn will be fed to the elders
+
 You can use this script as much or as little as you like, but if you turn on all the options, it will basically run the Kittens Game from reset to reset.
 
 Enjoy!
 
 ## Any special thanks?
 
-A huge thanks to the authors of both AutoKittens and KittenScientists for some of the ideas I integrated into this script!
+Thanks to the original author MaPaul1977 for the base of this script.
+
+A huge thanks to the authors of both AutoKittens and KittenScientists for some of the ideas that were integrated into this script!
 
 Thanks also go out to each of these reddit users for their help!
 
@@ -63,4 +68,3 @@ Thanks also go out to each of these reddit users for their help!
 - hughperman
 - dbsps
 - kbob
-- MaPaul1977
