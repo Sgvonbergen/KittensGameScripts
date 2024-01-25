@@ -60,7 +60,7 @@ var autoButtons = {
 	},
 }
 
-var tradeMax = {uranium: false, coal: false, iron: false};
+var tradeMax = {uranium: false, coal: false, iron: false, catnip: false};
 var tradeUnobtainium = false;
 // These will allow quick selection of the buildings which consume energy
 var bldSmelter = gamePage.bld.buildingsData[15];
@@ -252,6 +252,7 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<input id= "tradeMaxUranium" type="checkbox" onclick="tradeMax.uranium = this.checked" /><label for="tradeMaxUranium">Maximize uranium trades</label><br />' +
 '<input id= "tradeMaxCoal" type="checkbox" onclick="tradeMax.coal = this.checked" /><label for="tradeMaxCoal">Maximize coal trades</label><br />' +
 '<input id= "tradeMaxIron" type="checkbox" onclick="tradeMax.iron = this.checked" /><label for="tradeMaxIron">Maximize iron trades</label><br />' +
+'<input id= "tradeMaxCatnip" type="checkbox" onclick="tradeMax.catnip = this.checked" /><label for="tradeMaxCatnip">Maximize catnip trades</label><br />' +
 '<input id= "tradeUnobtainium" type="checkbox" onclick="tradeUnobtainium = this.checked" /><label for="tradeUnobtainium">Allow leviathan trades</label><br /><br />' +
 '<button id="autoHunt" style="color:red" onclick="autoSwitch(autoButtons.autoHunt)"> Auto Hunt </button><br />' +
 '<button id="autoFeed" style="color:red" onclick="autoSwitch(autoButtons.autoFeed)"> Auto Feed </button><br />' +
@@ -592,10 +593,13 @@ function autoTrade() {
 		tradeGriffins();
 	} else if (tradeMax.coal) {
 		tradeSpiders();
+	} else if (tradeMax.catnip) {
+		tradeSharks();
 	} else {
 		tradeDragons();
-		tradeSpiders();
 		tradeGriffins();
+		tradeSpiders();
+		tradeSharks();
 	}
 }
 
@@ -1032,6 +1036,53 @@ function emergencyTradeFood() {
 
 	// Determine how many trades are needed to get that much catnip, rounded up
 	var tradesRequired = Math.ceil(catnipRequired / expectedCatnipPerTrade);
+
+	// If possible, we want to perform as many trades as necessary to fill the stockpile; if we don't have enough resources to do that, we just do as many as we can
+	var tradesToPerform = Math.min(tradesRequired, maxTradesPossible);
+
+
+	// Perform the trades
+	gamePage.diplomacy.tradeMultiple(sharksRace, tradesToPerform);
+}
+
+function tradeSharks() {
+	// Check that the Dragons are available to trade with
+	if (!sharksRace.unlocked) {
+		return;
+	}
+
+	// Check that our uranium stockpile isn't already filled beyond its normal capacity
+	if (catnipResource.value > (catnipResource.maxValue + 1)) {
+		return;
+	}
+	
+	var dip = gamePage.diplomacy
+	// Determine how many trades are possible given our current resources, and check that this number is not 0
+	var maxTradesPossible = dip.getMaxTradeAmt(sharksRace);
+	if ((maxTradesPossible === undefined) || (maxTradesPossible < 1)) {
+		return;
+	}
+	
+	// Determine how much catnip we can expect from each trade, on average:
+	var tradeRatio = 1 + dip.getTradeRatio() + dip.calculateTradeBonusFromPolicies("sharks", dip.game) + dip.game.challenges.getChallenge("pacifism").getTradeBonusEffect(dip.game);
+	var expectedCatnipPerTrade = 35000 * tradeRatio * (1 + sharksRace.sells[0].seasons[gamePage.calendar.getCurSeason().name]);
+
+	// Then modify that by the effects of race relations
+	var standing = dip.game.getEffect("standingRatio") + dip.calculateStandingFromPolicies("sharks", dip.game);
+	var bonusAmt = standing / 2;
+	expectedCatnipPerTrade = expectedCatnipPerTrade * (1 - bonusAmt) + expectedCatnipPerTrade * bonusAmt * 1.25
+
+	var targetCatnip = catnipResource.maxValue - Math.max(gamePage.getResourcePerTick('catnip', true) * dispatchFunctions.autoCraft.triggerInterval, 0);
+
+	var catnipRequired = targetCatnip - catnipResource.value;
+
+	// Determine how many trades are needed to get that much uranium, rounded down
+	var tradesRequired = Math.floor(catnipRequired / expectedCatnipPerTrade);
+
+	// If no trades are necessary, we're done
+	if (tradesRequired < 1) {
+		return;
+	}
 
 	// If possible, we want to perform as many trades as necessary to fill the stockpile; if we don't have enough resources to do that, we just do as many as we can
 	var tradesToPerform = Math.min(tradesRequired, maxTradesPossible);
