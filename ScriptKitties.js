@@ -232,7 +232,7 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '</select><br /><br />' +
 
 '<button id="autoCraft" style="color:red" onclick="autoSwitch(autoButtons.autoCraft)"> Auto Craft </button>' +
-'<select id="craftFur" size="1" onclick="setFurValue()">' +
+'<select id="craftFur" size="1" onclick="setFurValue()"><br/>' +
 '<option value="0" selected="selected">None</option>' +
 '<option value="1">Parchment</option>' +
 '<option value="2">Manuscript</option>' +
